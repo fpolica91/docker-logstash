@@ -1,0 +1,17 @@
+version: '3.7'
+services:
+  logstash:
+    build:
+      context: ./logstash
+    volumes:
+      - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro,z
+      - ./logstash/pipeline:/usr/share/logstash/pipeline:ro,z
+    ports:
+      - "5044:5044"
+      - "5001:5000/tcp"
+      - "5001:5000/udp"
+      - "9600:9600"
+    expose:
+      - "5044"
+      - "5000"
+    restart: unless-stopped
